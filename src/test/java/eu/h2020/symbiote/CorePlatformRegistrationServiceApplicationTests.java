@@ -1,6 +1,5 @@
 package eu.h2020.symbiote;
 
-import eu.h2020.symbiote.platform.PlatformStorage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +13,10 @@ public class CorePlatformRegistrationServiceApplicationTests {
 
 	@Before
 	public void setUp() {
-
 	}
 
 	@After
 	public void tearDown() {
-
 	}
 
 	@Test
