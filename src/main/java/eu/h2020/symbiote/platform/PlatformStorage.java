@@ -25,6 +25,7 @@ public class PlatformStorage {
     private PlatformStorage( String storageLocation ) {
         log.info( "Starting platform storage based on Apache Jena");
         TripleStore tripleStore = new TripleStore( storageLocation );
+        this.storageLocation = storageLocation;
         core = new Registry(tripleStore);
         searchEngine = new SearchEngine(tripleStore);
         log.info( "" );
