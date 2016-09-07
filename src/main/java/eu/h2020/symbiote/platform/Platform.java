@@ -2,18 +2,11 @@ package eu.h2020.symbiote.platform;
 
 import eu.h2020.symbiote.core.RDFFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 /**
  * Created by Mael on 30/08/2016.
  */
-@Entity
 public class Platform {
 
-	@Id
-	@GeneratedValue
 	private Long id;
 
 	private String model;
