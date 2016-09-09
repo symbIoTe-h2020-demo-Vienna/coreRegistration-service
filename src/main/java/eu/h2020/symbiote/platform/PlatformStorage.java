@@ -1,6 +1,7 @@
 package eu.h2020.symbiote.platform;
 
 import eu.h2020.symbiote.core.*;
+import eu.h2020.symbiote.messaging.PlatformRegistrationPublisher;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -59,7 +60,10 @@ public class PlatformStorage {
 
         long modelId = registerModel(platform);
         if( modelId >= 0 ) {
+            PlatformRegistrationPublisher.getInstance().sendModelCreatedMessage(modelId, platform.getModel(),platform.getFormat());
+
             platformId = registerInstance(modelId, platform);
+            PlatformRegistrationPublisher.getInstance().sendPlatformCreatedMessage(modelId,platform);
         }
 
         log.info(" >>>>>>>>> PLATFORM (and model) CREATED [ " + platformId + " ]  <<<<<<<<<<<");
@@ -76,6 +80,7 @@ public class PlatformStorage {
     private long registerInstance( long modelId, Platform platform ) {
         log.info( "Registering platform...");
         long i = core.registerPlatform(modelId, platform.getInstance(), platform.getFormat());
+        platform.setId(i);
         log.info( "Platform registered! id: " + i);
         return i;
     }

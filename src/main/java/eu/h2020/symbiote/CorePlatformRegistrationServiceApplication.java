@@ -1,7 +1,10 @@
 package eu.h2020.symbiote;
 
+import eu.h2020.symbiote.messaging.RabbitMessager;
 import eu.h2020.symbiote.platform.Platform;
 import eu.h2020.symbiote.platform.PlatformStorage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -23,7 +26,10 @@ public class CorePlatformRegistrationServiceApplication {
 @RestController
 class RegistrationController {
 
+	private static Log log = LogFactory.getLog(RegistrationController.class);
+
 	private static final String DIRECTORY = "/corePlatformTriplestore";
+
 
 	public RegistrationController() {
 	}
@@ -31,6 +37,7 @@ class RegistrationController {
 	@RequestMapping(method = RequestMethod.POST, value = "/register", consumes = "application/json")
     String register(@RequestBody Platform platform ) {
 		String platformUri = PlatformStorage.getInstance(DIRECTORY).store(platform);
+
 		return platformUri;
 	}
 //    String register() {
