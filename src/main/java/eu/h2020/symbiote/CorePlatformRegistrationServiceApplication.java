@@ -2,6 +2,7 @@ package eu.h2020.symbiote;
 
 import eu.h2020.symbiote.messaging.PlatformRegistrationPublisher;
 import eu.h2020.symbiote.repository.InformationModel;
+import eu.h2020.symbiote.repository.Mapping;
 import eu.h2020.symbiote.repository.Platform;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,6 +44,11 @@ interface InformationModelRepository extends MongoRepository<InformationModel, S
 
 }
 
+@RepositoryRestResource(collectionResourceRel = "mapping", path = "mapping")
+interface MappingRepository extends MongoRepository<Mapping, String> {
+
+}
+
 @RepositoryRestController
 class PlatformController {
 
@@ -79,24 +85,20 @@ class InformationModelController {
 	}
 }
 
-//@RestController
-//class RegistrationController {
-//
-//	private static Log log = LogFactory.getLog(RegistrationController.class);
-//
-//	private static final String DIRECTORY = "/corePlatformTriplestore";
-//
-//
-//	public RegistrationController() {
-//	}
-//
-//	@RequestMapping(method = RequestMethod.POST, value = "/register", consumes = "application/json")
-//    String register(@RequestBody Platform platform ) {
-//		String platformUri = PlatformStorage.getInstance(DIRECTORY).store(platform);
-//
-//		return platformUri;
-//	}
-////    String register() {
-////        return "Platform registered";
-////    }
-//}
+@RepositoryRestController
+class MappingController {
+
+	@Autowired
+	private MappingRepository repo;
+
+	@RequestMapping(value="/mapping", method= RequestMethod.POST)
+	public @ResponseBody
+	HttpEntity<Mapping> addModel(@RequestBody Mapping mapping) {
+		System.out.println( "Adding Mapping");
+		Mapping savedMapping = repo.save(mapping);
+		System.out.println( "Model added! : " + mapping + ". Sending message...");
+		//Sending message
+		PlatformRegistrationPublisher.getInstance().sendMappingCreatedMessage(savedMapping);
+		return new ResponseEntity<Mapping>( savedMapping, HttpStatus.OK);
+	}
+}

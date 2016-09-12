@@ -1,6 +1,7 @@
 package eu.h2020.symbiote.messaging;
 
 import eu.h2020.symbiote.repository.InformationModel;
+import eu.h2020.symbiote.repository.Mapping;
 import eu.h2020.symbiote.repository.Platform;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,4 +53,14 @@ public class PlatformRegistrationPublisher {
         }
     }
 
+
+    public void sendMappingCreatedMessage(Mapping savedMapping) {
+        try {
+
+            RabbitMessager.sendMessage(MAPPING_CREATED_QUEUE, savedMapping);
+            log.info("Mapping " + savedMapping.getId() + " created message send successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
