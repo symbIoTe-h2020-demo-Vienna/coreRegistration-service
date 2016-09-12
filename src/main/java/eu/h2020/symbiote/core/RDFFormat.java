@@ -1,8 +1,6 @@
 package eu.h2020.symbiote.core;
 
 
-import org.apache.commons.io.FilenameUtils;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -31,22 +29,22 @@ public enum RDFFormat {
         return name;
     }
 
-    public static RDFFormat fromFilename(String filename) {
-        String ext = FilenameUtils.getExtension(filename).toLowerCase();
-        switch (ext) {
-            case "ttl":
-                return RDFFormat.Turtle;
-            case "nt":
-                return RDFFormat.NTriples;
-            case "rdf":
-            case "xml":
-                return RDFFormat.RDFXML;
-            case "n3":
-                return RDFFormat.N3;
-            case "jsonld":
-                return RDFFormat.JSONLD;
-            default:
-                throw new IllegalArgumentException("unknown file extension '" + ext + "'");
-        }
-    }
+//    public static RDFFormat fromFilename(String filename) {
+//        String ext = FilenameUtils.getExtension(filename).toLowerCase();
+//        switch (ext) {
+//            case "ttl":
+//                return RDFFormat.Turtle;
+//            case "nt":
+//                return RDFFormat.NTriples;
+//            case "rdf":
+//            case "xml":
+//                return RDFFormat.RDFXML;
+//            case "n3":
+//                return RDFFormat.N3;
+//            case "jsonld":
+//                return RDFFormat.JSONLD;
+//            default:
+//                throw new IllegalArgumentException("unknown file extension '" + ext + "'");
+//        }
+//    }
 }

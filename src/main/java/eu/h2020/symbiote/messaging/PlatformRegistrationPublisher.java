@@ -1,9 +1,7 @@
 package eu.h2020.symbiote.messaging;
 
-import eu.h2020.symbiote.core.RDFFormat;
-import eu.h2020.symbiote.messaging.model.CreatedPlatform;
-import eu.h2020.symbiote.messaging.model.OntologyModel;
-import eu.h2020.symbiote.platform.Platform;
+import eu.h2020.symbiote.repository.InformationModel;
+import eu.h2020.symbiote.repository.Platform;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,21 +32,21 @@ public class PlatformRegistrationPublisher {
         return singleton;
     }
 
-    public void sendPlatformCreatedMessage( Long modelId, Platform platform ) {
+    public void sendPlatformCreatedMessage( Platform platform ) {
         try {
-            CreatedPlatform createdPlatform = new CreatedPlatform(platform.getId(),platform.getInstance(),platform.getFormat(),modelId);
-            RabbitMessager.sendMessage(PLATFORM_CREATED_QUEUE, createdPlatform);
+//            CreatedPlatform createdPlatform = new CreatedPlatform(platform.getId(),platform.getInstance(),platform.getFormat(),modelId);
+            RabbitMessager.sendMessage(PLATFORM_CREATED_QUEUE, platform);
             log.info("Platform " + platform.getId() + " created message send successfully");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void sendModelCreatedMessage(Long modelId, String model, RDFFormat format) {
+    public void sendModelCreatedMessage(InformationModel informationModel ) {
         try {
-            OntologyModel ontologyModel = new OntologyModel(modelId,model,format);
-            RabbitMessager.sendMessage(MODEL_CREATED_QUEUE, ontologyModel);
-            log.info("Model " + modelId + " created message send successfully");
+//            OntologyModel ontologyModel = new OntologyModel(modelId,model,format);
+            RabbitMessager.sendMessage(MODEL_CREATED_QUEUE, informationModel);
+            log.info("Model " + informationModel.getId() + " created message send successfully");
         } catch (Exception e) {
             e.printStackTrace();
         }
