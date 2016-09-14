@@ -1,6 +1,6 @@
 package eu.h2020.symbiote;
 
-import eu.h2020.symbiote.messaging.PlatformRegistrationPublisher;
+import eu.h2020.symbiote.messaging.RegistrationPublisher;
 import eu.h2020.symbiote.repository.InformationModel;
 import eu.h2020.symbiote.repository.Mapping;
 import eu.h2020.symbiote.repository.Platform;
@@ -23,12 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class CorePlatformRegistrationServiceApplication {
+public class CoreRegistrationServiceApplication {
 
-	public static Log log = LogFactory.getLog(CorePlatformRegistrationServiceApplication.class);
+	public static Log log = LogFactory.getLog(CoreRegistrationServiceApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(CorePlatformRegistrationServiceApplication.class, args);
+		SpringApplication.run(CoreRegistrationServiceApplication.class, args);
 	}
 
 }
@@ -62,7 +62,7 @@ class PlatformController {
 		Platform savedPlatform = repo.save(platform);
 		System.out.println( "Platform added! : " + savedPlatform + ". Sending message...");
 		//Sending message
-		PlatformRegistrationPublisher.getInstance().sendPlatformCreatedMessage( savedPlatform );
+		RegistrationPublisher.getInstance().sendPlatformCreatedMessage( savedPlatform );
 		return new ResponseEntity<Platform>( savedPlatform, HttpStatus.OK);
 	}
 }
@@ -80,7 +80,7 @@ class InformationModelController {
 		InformationModel savedModel = repo.save(model);
 		System.out.println( "Model added! : " + savedModel + ". Sending message...");
 		//Sending message
-		PlatformRegistrationPublisher.getInstance().sendModelCreatedMessage(savedModel);
+		RegistrationPublisher.getInstance().sendModelCreatedMessage(savedModel);
 		return new ResponseEntity<InformationModel>( savedModel, HttpStatus.OK);
 	}
 }
@@ -98,7 +98,7 @@ class MappingController {
 		Mapping savedMapping = repo.save(mapping);
 		System.out.println( "Model added! : " + mapping + ". Sending message...");
 		//Sending message
-		PlatformRegistrationPublisher.getInstance().sendMappingCreatedMessage(savedMapping);
+		RegistrationPublisher.getInstance().sendMappingCreatedMessage(savedMapping);
 		return new ResponseEntity<Mapping>( savedMapping, HttpStatus.OK);
 	}
 }

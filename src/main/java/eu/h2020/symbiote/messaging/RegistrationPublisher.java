@@ -9,27 +9,27 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Created by Mael on 08/09/2016.
  */
-public class PlatformRegistrationPublisher {
+public class RegistrationPublisher {
 
     private static String PLATFORM_CREATED_QUEUE = "PlatformCreated";
     private static String MODEL_CREATED_QUEUE = "ModelCreated";
     private static String MAPPING_CREATED_QUEUE = "MappingCreated";
 
 
-    private static Log log = LogFactory.getLog(PlatformRegistrationPublisher.class);
+    private static Log log = LogFactory.getLog(RegistrationPublisher.class);
 
 
-    private static PlatformRegistrationPublisher singleton;
+    private static RegistrationPublisher singleton;
 
     static {
-        singleton = new PlatformRegistrationPublisher();
+        singleton = new RegistrationPublisher();
     }
 
-    private PlatformRegistrationPublisher() {
+    private RegistrationPublisher() {
 
     }
 
-    public static PlatformRegistrationPublisher getInstance() {
+    public static RegistrationPublisher getInstance() {
         return singleton;
     }
 
