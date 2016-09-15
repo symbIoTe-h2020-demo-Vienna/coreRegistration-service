@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>eu.h2020.symbiote</groupId>
-	<artifactId>corePlatformRegistration-service</artifactId>
+	<artifactId>coreRegistration-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>corePlatformRegistration-service</name>
+	<name>coreRegistration-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
