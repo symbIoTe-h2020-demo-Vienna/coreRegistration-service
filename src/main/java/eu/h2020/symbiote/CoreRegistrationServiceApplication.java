@@ -16,10 +16,7 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @EnableDiscoveryClient
 @SpringBootApplication
@@ -49,6 +46,7 @@ interface MappingRepository extends MongoRepository<Mapping, String> {
 
 }
 
+@CrossOrigin
 @RepositoryRestController
 class PlatformController {
 
@@ -67,6 +65,7 @@ class PlatformController {
 	}
 }
 
+@CrossOrigin
 @RepositoryRestController
 class InformationModelController {
 
@@ -85,6 +84,7 @@ class InformationModelController {
 	}
 }
 
+@CrossOrigin
 @RepositoryRestController
 class MappingController {
 
@@ -96,7 +96,7 @@ class MappingController {
 	HttpEntity<Mapping> addModel(@RequestBody Mapping mapping) {
 		System.out.println( "Adding Mapping");
 		Mapping savedMapping = repo.save(mapping);
-		System.out.println( "Model added! : " + mapping + ". Sending message...");
+		System.out.println( "Mapping added! : " + mapping + ". Sending message...");
 		//Sending message
 		RegistrationPublisher.getInstance().sendMappingCreatedMessage(savedMapping);
 		return new ResponseEntity<Mapping>( savedMapping, HttpStatus.OK);
